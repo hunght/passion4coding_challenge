@@ -2,6 +2,7 @@
 1. go to root server run command: npm start
 ## run frontend
 1. go to root frontend run command: npm start
+2. URL: http://localhost:3000
 ## account for test
 username: admin
 password: 123456
