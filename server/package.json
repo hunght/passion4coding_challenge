@@ -1,22 +1,19 @@
 {
-  "name": "y",
+  "name": "passion4coding",
   "version": "1.0.0",
-  "description": "",
+  "description": "The object exposed in model.js could be directly passed into the model parameter of the config object when initiating.",
   "main": "index.js",
-  "dependencies": {
-    "bluebird": "^3.5.0",
-    "body-parser": "^1.17.2",
-    "express": "^4.15.3",
-    "fs": "0.0.1-security",
-    "mysql": "^2.16.0",
-    "node-oauth2-server": "^2.4.0",
-    "path": "^0.12.7"
-  },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Micah Simmons",
-  "license": "ISC"
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-oauth-server": "^2.0.0",
+    "fs": "0.0.1-security",
+    "util": "^0.11.1"
+  }
 }

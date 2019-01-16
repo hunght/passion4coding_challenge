@@ -1,43 +1,22 @@
 import axios from "axios";
 import { BASE_URL } from "../URL";
 
-export const signIn = async (username: string) => {
+export const signIn = async (username: string, password: string) => {
     const dataPost = {
         username,
-        password: "123456",
-        grant_type: "password",
-        client_id: 'null',
-        client_secret: 'null'
+        password,
+        client_id: 'dummy-client-id',
+        client_secret: 'dummy-client-secret',
+        grant_type: "client_credentials"
     };
     return new Promise<any>((resolve: any, reject: any) => {
         axios
-            .post(`${BASE_URL}/auth/login`, dataPost)
+            .post(`${BASE_URL}/oauth/token`, dataPost)
             .then(response => {
                 const { data } = response;
                 resolve(data);
             })
             .catch(error => {
-                reject(error);
-            });
-    });
-}
-export const signUp = async (username: string) => {
-    const dataPost = {
-        username,
-        password: "123456",
-        grant_type: "password",
-        client_id: 'null',
-        client_secret: 'null'
-    };
-    return new Promise<any>((resolve: any, reject: any) => {
-        axios
-            .post(`${BASE_URL}/auth/registerUser`, dataPost)
-            .then((response: any) => {
-                const { data } = response;
-
-                resolve(data);
-            })
-            .catch((error: any) => {
                 reject(error);
             });
     });

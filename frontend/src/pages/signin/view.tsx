@@ -14,14 +14,17 @@ import { Link } from "react-router-dom";
 import styles from "./styles";
 interface IProps {
     username: string,
+    password: string,
     classes: any;
     onSubmit: () => void;
     setUsername: (username: string) => void,
+    setPassword: (password: string) => void,
 }
-const LinkRegister = () => <Link to="/register">Not yet account?</Link>
 const SignIn: React.SFC<IProps> = ({
     username,
     setUsername,
+    password,
+    setPassword,
     classes,
     onSubmit
 }) => {
@@ -41,14 +44,10 @@ const SignIn: React.SFC<IProps> = ({
                         <InputLabel htmlFor="email">Username</InputLabel>
                         <Input value={username} onChange={({ target }: any) => setUsername(target.value)} id="email" name="email" autoComplete="email" autoFocus />
                     </FormControl>
-                    <Button
-                        component={LinkRegister}
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                    >
-                        Register
-                    </Button>
+                    <FormControl margin="normal" required fullWidth>
+                        <InputLabel htmlFor="password">Password</InputLabel>
+                        <Input type="password" value={password} onChange={({ target }: any) => setPassword(target.value)} id="password" name="password" autoComplete="password" autoFocus />
+                    </FormControl>
                     <Button
                         type="submit"
                         fullWidth

@@ -3,12 +3,8 @@ import {
     AUTH_HIDE_SPINNER
 } from "../constants/auth";
 import history from "../../services/history";
-import { signIn as apiSignIn, signUp as apiSignUp } from "../../services/api/auth";
+import { signIn as apiSignIn } from "../../services/api/auth";
 
-export interface SignUpSuccessAction {
-    type: "AUTH_SIGN_UP_SUCCESS"
-    payload: any
-}
 export interface AuthShowSpinnerAction {
     type: "AUTH_SHOW_SPINNER"
 }
@@ -17,10 +13,10 @@ export interface AuthHideSpinnerAction {
 }
 export type Action = AuthShowSpinnerAction | AuthHideSpinnerAction;
 
-export const signIn = (username: string) => async (dispatch: any) => {
+export const signIn = (username: string, password: string) => async (dispatch: any) => {
     try {
         dispatch(showSpinner());
-        const oauth = await apiSignIn(username);
+        const oauth = await apiSignIn(username, password);
         localStorage.setItem('oauth', JSON.stringify(oauth));
         history.push('/');
         dispatch(hideSpinner());
@@ -28,18 +24,7 @@ export const signIn = (username: string) => async (dispatch: any) => {
         dispatch(hideSpinner());
     }
 }
-export const signUp = (username: string) => async (dispatch: any) => {
-    try {
-        dispatch(showSpinner());
-        const user = await apiSignUp(username);
-        if (user) {
-            history.push('/login');
-        }
-        dispatch(hideSpinner());
-    } catch (error) {
-        dispatch(hideSpinner());
-    }
-}
+
 export function showSpinner(): AuthShowSpinnerAction {
     return {
         type: AUTH_SHOW_SPINNER

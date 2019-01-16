@@ -3,15 +3,16 @@ import { compose, withState, withHandlers } from "recompose";
 import { signIn } from "../../redux/actions/auth";
 import View from "./view";
 export default compose(
-    withState('username', 'setUsername', ''),
+    withState('username', 'setUsername', 'admin'),
+    withState('password', 'setPassword', '123456'),
     connect(
         ({ auth }: any) => ({ ...auth }),
         ({ signIn })
     ),
     withHandlers({
-        onSubmit: ({ signIn, username }: any) => async (event: any) => {
+        onSubmit: ({ signIn, username, password }: any) => async (event: any) => {
             event.preventDefault();
-            if (username) return signIn(username)
+            if (username && password) return signIn(username, password)
         }
     })
 )(View);

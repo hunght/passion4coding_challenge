@@ -1,49 +1,62 @@
+const bodyParser = require('body-parser');
+const express = require('express');
+const OAuthServer = require('express-oauth-server');
+const fs = require('fs');
 
-const port = 8080
-const mySqlConnection = require('./databaseHelpers/mySqlWrapper')
-const accessTokenDBHelper = require('./databaseHelpers/accessTokensDBHelper')(mySqlConnection)
-const userDBHelper = require('./databaseHelpers/userDBHelper')(mySqlConnection)
-const oAuthModel = require('./authorisation/accessTokenModel')(userDBHelper, accessTokenDBHelper)
-const oAuth2Server = require('node-oauth2-server')
-const express = require('express')
-const path = require('path');
-global.appRoot = path.resolve(__dirname);
-const expressApp = express()
-expressApp.oauth = oAuth2Server({
-  model: oAuthModel,
-  grants: ['password'],
-  debug: false
-})
-expressApp.use(function(req, res, next) {
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
-const restrictedAreaRoutesMethods = require('./restrictedArea/restrictedAreaRoutesMethods.js')
-const restrictedAreaRoutes = require('./restrictedArea/restrictedAreaRoutes.js')(express.Router(), expressApp, restrictedAreaRoutesMethods)
-const authRoutesMethods = require('./authorisation/authRoutesMethods')(userDBHelper)
-const authRoutes = require('./authorisation/authRoutes')(express.Router(), expressApp, authRoutesMethods)
-const bodyParser = require('body-parser')
+const MemoryStore = require('./model.js')
+const memoryStore = new MemoryStore()
 
-//set the bodyParser to parse the urlencoded post data
-expressApp.use(bodyParser.urlencoded({ extended: true }));
-expressApp.use(bodyParser.json());
-expressApp.use(bodyParser.urlencoded());
-
-//set the oAuth errorHandler
-expressApp.use(expressApp.oauth.errorHandler());
-
-//set the authRoutes for registration and & login requests
-expressApp.use('/auth', authRoutes)
-
-//set the restrictedAreaRoutes used to demo the accesiblity or routes that ar OAuth2 protected
-expressApp.use('/api', restrictedAreaRoutes)
-
-//MARK: --- INITIALISE MIDDLEWARE & ROUTES
-
-//init the server
-expressApp.listen(port, () => {
-
-   console.log(`listening on port ${port}`)
+app.oauth = new OAuthServer({
+	model: memoryStore // See https://github.com/oauthjs/node-oauth2-server for specification
 })
+
+const allowJson = function(req, res, next) {
+  if (req.is('json'))
+    req.headers['content-type'] = 'application/x-www-form-urlencoded';
+
+  next();
+};
+
+
+app.post('/oauth/token', allowJson, app.oauth.token());
+
+// Get secret.
+app.get('/api/categories', app.oauth.authenticate(), function (req, res) {
+  let courses = [];
+  fs.readFile(`${__dirname}/json/categories.json`, (err, data) => {
+    if (err) throw err;
+    courses = JSON.parse(data);
+    res.json({ data: courses });
+  });
+});
+// Get secret.
+app.get('/api/verticals', app.oauth.authenticate(), function (req, res) {
+  let verticals = [];
+  fs.readFile(`${__dirname}/json/verticals.json`, (err, data) => {
+    if (err) throw err;
+    verticals = JSON.parse(data);
+    res.json({ data: verticals });
+  });
+});
+// Get secret.
+app.get('/api/courses', app.oauth.authenticate(), function (req, res) {
+  let courses = [];
+  fs.readFile(`${__dirname}/json/courses.json`, (err, data) => {
+    if (err) throw err;
+    courses = JSON.parse(data);
+    res.json({ data: courses });
+  });
+});
+
+app.listen(8080, () => {
+  console.log("Running 8080")
+});

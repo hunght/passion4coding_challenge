@@ -5,7 +5,6 @@ import CoursesPage from "./pages/courses";
 import CategoriesPage from "./pages/categories";
 import VerticalsPage from "./pages/verticals";
 import SignInPage from "./pages/signin";
-import SignUpPage from "./pages/register";
 const PrivateRoute = ({ component, isAuthenticated, ...rest }: any) => {
     const routeComponent = (props: any) => (
         isAuthenticated
@@ -21,7 +20,6 @@ const Roster = () => {
         <Router history={history}>
             <Switch>
                 <Route path="/login" exact component={SignInPage} />
-                <Route path="/register" exact component={SignUpPage} />
                 <PrivateRoute isAuthenticated={isAuthenticated} path="/" exact component={CoursesPage} />
                 <PrivateRoute isAuthenticated={isAuthenticated} path="/courses" exact component={CoursesPage} />
                 <PrivateRoute isAuthenticated={isAuthenticated} path="/categories" exact component={CategoriesPage} />
