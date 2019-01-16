@@ -67,10 +67,9 @@ function InMemoryCache() {
       refreshTokenExpiresAt: token.refreshTokenExpiresAt,
       userId: user.id,
   
-      //these are required in /node_modules/express-oauth-server/node_modules/oauth2-server/lib/models/token-model.js
       client: client,
       user:user,
-      scope: null, //where are we taking scope from? maybe client?
+      scope: null,
     };
     this.tokens.push(newToken);
     return newToken;

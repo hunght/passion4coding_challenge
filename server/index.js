@@ -16,7 +16,7 @@ const MemoryStore = require('./model.js')
 const memoryStore = new MemoryStore()
 
 app.oauth = new OAuthServer({
-	model: memoryStore // See https://github.com/oauthjs/node-oauth2-server for specification
+	model: memoryStore
 })
 
 const allowJson = function(req, res, next) {
