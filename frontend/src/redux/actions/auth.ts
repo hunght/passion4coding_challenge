@@ -1,11 +1,12 @@
 import {
-    AUTH_SIGN_IN_SUCCESS,
     AUTH_SHOW_SPINNER,
     AUTH_HIDE_SPINNER
 } from "../constants/auth";
-import { signIn as apiSignIn } from "../../services/api/auth";
-export interface SignInSuccessAction {
-    type: "AUTH_SIGN_IN_SUCCESS"
+import history from "../../services/history";
+import { signIn as apiSignIn, signUp as apiSignUp } from "../../services/api/auth";
+
+export interface SignUpSuccessAction {
+    type: "AUTH_SIGN_UP_SUCCESS"
     payload: any
 }
 export interface AuthShowSpinnerAction {
@@ -14,23 +15,29 @@ export interface AuthShowSpinnerAction {
 export interface AuthHideSpinnerAction {
     type: "AUTH_HIDE_SPINNER"
 }
-export type Action = SignInSuccessAction | AuthShowSpinnerAction | AuthHideSpinnerAction;
+export type Action = AuthShowSpinnerAction | AuthHideSpinnerAction;
 
-export const signIn = (email: string, password: string) => async (dispatch: any) => {
+export const signIn = (username: string) => async (dispatch: any) => {
     try {
         dispatch(showSpinner());
-        const user = await apiSignIn(email, password);
-        dispatch(signInSuccess(user));
+        const oauth = await apiSignIn(username);
+        localStorage.setItem('oauth', JSON.stringify(oauth));
+        history.push('/');
         dispatch(hideSpinner());
     } catch (error) {
         dispatch(hideSpinner());
     }
 }
-
-export function signInSuccess(payload: any): SignInSuccessAction {
-    return {
-        type: AUTH_SIGN_IN_SUCCESS,
-        payload
+export const signUp = (username: string) => async (dispatch: any) => {
+    try {
+        dispatch(showSpinner());
+        const user = await apiSignUp(username);
+        if (user) {
+            history.push('/login');
+        }
+        dispatch(hideSpinner());
+    } catch (error) {
+        dispatch(hideSpinner());
     }
 }
 export function showSpinner(): AuthShowSpinnerAction {

@@ -5,7 +5,7 @@ export const getVerticals = async () => {
     const token = "";
     return new Promise<any>((resolve: any, reject: any) => {
         axios
-            .get(`${BASE_URL}/verticals`, {
+            .get(`${BASE_URL}/api/verticals`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

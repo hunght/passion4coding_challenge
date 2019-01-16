@@ -1,12 +1,22 @@
 {
-  "name": "server",
+  "name": "y",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
-  "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4",
-    "express-oauth-server": "^2.0.0",
-    "fs": "^0.0.1-security"
-  }
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "fs": "0.0.1-security",
+    "mysql": "^2.16.0",
+    "node-oauth2-server": "^2.4.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Micah Simmons",
+  "license": "ISC"
 }

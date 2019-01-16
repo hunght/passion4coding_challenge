@@ -10,7 +10,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from "react-router-dom";
-
 import styles from "./styles";
 interface IProps {
     username: string,
@@ -18,8 +17,8 @@ interface IProps {
     onSubmit: () => void;
     setUsername: (username: string) => void,
 }
-const LinkRegister = () => <Link to="/register">Not yet account?</Link>
-const SignIn: React.SFC<IProps> = ({
+const LinkLogin = () => <Link to="/login">Have an account?</Link>
+const SignUp: React.SFC<IProps> = ({
     username,
     setUsername,
     classes,
@@ -34,20 +33,15 @@ const SignIn: React.SFC<IProps> = ({
                     <LockIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign in
+                    Sign up
                 </Typography>
                 <form method="POST" className={classes.form} onSubmit={onSubmit}>
                     <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="email">Username</InputLabel>
-                        <Input value={username} onChange={({ target }: any) => setUsername(target.value)} id="email" name="email" autoComplete="email" autoFocus />
+                        <InputLabel htmlFor="username">User name</InputLabel>
+                        <Input value={username} onChange={({ target }: any) => setUsername(target.value)} id="username" name="username" autoComplete="username" autoFocus />
                     </FormControl>
-                    <Button
-                        component={LinkRegister}
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                    >
-                        Register
+                    <Button component={LinkLogin}>
+                        Link
                     </Button>
                     <Button
                         type="submit"
@@ -56,8 +50,9 @@ const SignIn: React.SFC<IProps> = ({
                         color="primary"
                         className={classes.submit}
                     >
-                        Sign in
+                        Sign up
                     </Button>
+
                 </form>
             </Paper>
         </main>
@@ -65,4 +60,4 @@ const SignIn: React.SFC<IProps> = ({
 }
 
 //@ts-ignore
-export default withStyles(styles)(SignIn);
+export default withStyles(styles)(SignUp);

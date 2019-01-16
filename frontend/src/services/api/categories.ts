@@ -5,7 +5,7 @@ export const getCategories = async () => {
     const token = "";
     return new Promise<any>((resolve: any, reject: any) => {
         axios
-            .get(`${BASE_URL}/categories`, {
+            .get(`${BASE_URL}/api/categories`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

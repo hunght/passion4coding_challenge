@@ -1,9 +1,11 @@
 import * as React from "react";
-import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
+import { Router, Switch, Redirect, Route } from 'react-router-dom';
+import history from "./services/history";
 import CoursesPage from "./pages/courses";
 import CategoriesPage from "./pages/categories";
 import VerticalsPage from "./pages/verticals";
 import SignInPage from "./pages/signin";
+import SignUpPage from "./pages/register";
 const PrivateRoute = ({ component, isAuthenticated, ...rest }: any) => {
     const routeComponent = (props: any) => (
         isAuthenticated
@@ -13,14 +15,19 @@ const PrivateRoute = ({ component, isAuthenticated, ...rest }: any) => {
     return <Route {...rest} render={routeComponent} />;
 };
 
-const Roster = () => (
-    <BrowserRouter>
-        <Switch>
-            <Route path="/login" exact component={SignInPage} />
-            <PrivateRoute isAuthenticated={false} path="/courses" exact component={CoursesPage} />
-            <PrivateRoute isAuthenticated={false} path="/categories" exact component={CategoriesPage} />
-            <PrivateRoute isAuthenticated={false} path="/verticals" exact component={VerticalsPage} />
-        </Switch>
-    </BrowserRouter>
-);
+const Roster = () => {
+    const isAuthenticated = localStorage.getItem('oauth') ? true : false;
+    return (
+        <Router history={history}>
+            <Switch>
+                <Route path="/login" exact component={SignInPage} />
+                <Route path="/register" exact component={SignUpPage} />
+                <PrivateRoute isAuthenticated={isAuthenticated} path="/" exact component={CoursesPage} />
+                <PrivateRoute isAuthenticated={isAuthenticated} path="/courses" exact component={CoursesPage} />
+                <PrivateRoute isAuthenticated={isAuthenticated} path="/categories" exact component={CategoriesPage} />
+                <PrivateRoute isAuthenticated={isAuthenticated} path="/verticals" exact component={VerticalsPage} />
+            </Switch>
+        </Router>
+    );
+}
 export default Roster; 
