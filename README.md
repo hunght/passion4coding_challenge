@@ -8,7 +8,15 @@ username: admin
 password: 123456
 
 
-## Answer questions:
+## Questions:
 1. How does your solution perform?
 2. How does your solution scale?
 3. What would you improve next?
+
+## Answers
+1.
+2.
+- Structure your files by feature.
+- Use redux-saga to: have readable and testable asynchronous flows, tie together your decoupled components.
+
+3. I’m working on improving in state management , performance and architecture. So I’m trying to go from ‘good’ to ‘great’ in these areas.
