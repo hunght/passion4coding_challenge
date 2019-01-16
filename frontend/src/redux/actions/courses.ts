@@ -1,3 +1,4 @@
+import { toastr } from 'react-redux-toastr';
 import {
     COURSES_RECEIVES_LIST,
     COURSES_SHOW_SPINNER,
@@ -23,6 +24,10 @@ export const getCourses = () => async (dispatch: any) => {
         dispatch(coursesReceivesList(courses));
         dispatch(hideSpinner());
     } catch (error) {
+        const {
+            error_description
+        } = error.response.data;
+        toastr.error(error_description)
         dispatch(hideSpinner());
     }
 }

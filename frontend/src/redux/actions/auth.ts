@@ -2,7 +2,6 @@ import {
     AUTH_SHOW_SPINNER,
     AUTH_HIDE_SPINNER
 } from "../constants/auth";
-import history from "../../services/history";
 import { signIn as apiSignIn } from "../../services/api/auth";
 
 export interface AuthShowSpinnerAction {
@@ -18,7 +17,7 @@ export const signIn = (username: string, password: string) => async (dispatch: a
         dispatch(showSpinner());
         const oauth = await apiSignIn(username, password);
         localStorage.setItem('oauth', JSON.stringify(oauth));
-        history.push('/');
+        window.location.href = "/";
         dispatch(hideSpinner());
     } catch (error) {
         dispatch(hideSpinner());

@@ -1,6 +1,5 @@
 import * as React from "react";
-import { Router, Switch, Redirect, Route } from 'react-router-dom';
-import history from "./services/history";
+import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
 import CoursesPage from "./pages/courses";
 import CategoriesPage from "./pages/categories";
 import VerticalsPage from "./pages/verticals";
@@ -17,7 +16,7 @@ const PrivateRoute = ({ component, isAuthenticated, ...rest }: any) => {
 const Roster = () => {
     const isAuthenticated = localStorage.getItem('oauth') ? true : false;
     return (
-        <Router history={history}>
+        <BrowserRouter>
             <Switch>
                 <Route path="/login" exact component={SignInPage} />
                 <PrivateRoute isAuthenticated={isAuthenticated} path="/" exact component={CoursesPage} />
@@ -25,7 +24,7 @@ const Roster = () => {
                 <PrivateRoute isAuthenticated={isAuthenticated} path="/categories" exact component={CategoriesPage} />
                 <PrivateRoute isAuthenticated={isAuthenticated} path="/verticals" exact component={VerticalsPage} />
             </Switch>
-        </Router>
+        </BrowserRouter>
     );
 }
 export default Roster; 

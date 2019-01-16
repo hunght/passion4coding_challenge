@@ -1,3 +1,4 @@
+import { toastr } from 'react-redux-toastr'
 import {
     CATEGORIES_RECEIVES_LIST,
     CATEGORIES_SHOW_SPINNER,
@@ -23,6 +24,10 @@ export const getCategories = () => async (dispatch: any) => {
         dispatch(categoriesReceivesList(categories));
         dispatch(hideSpinner());
     } catch (error) {
+        const {
+            error_description
+        } = error.response.data;
+        toastr.error(error_description)
         dispatch(hideSpinner());
     }
 }

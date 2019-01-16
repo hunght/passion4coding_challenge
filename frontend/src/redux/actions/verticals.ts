@@ -1,3 +1,4 @@
+import { toastr } from 'react-redux-toastr';
 import {
     VERTICALS_RECEIVES_LIST,
     VERTICALS_SHOW_SPINNER,
@@ -23,6 +24,10 @@ export const getVerticals = () => async (dispatch: any) => {
         dispatch(verticalsReceivesList(verticals));
         dispatch(hideSpinner());
     } catch (error) {
+        const {
+            error_description
+        } = error.response.data;
+        toastr.error(error_description)
         dispatch(hideSpinner());
     }
 }
