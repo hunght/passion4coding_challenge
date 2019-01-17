@@ -42,10 +42,14 @@ export default compose(
         },
         onSelectedCategory: ({
             selectedCategories,
-            setSelectedCategories
+            setSelectedCategories,
+            setSelectedCourses
         }: any) => (id: number) => {
             const selected = xor(selectedCategories, [id]);
             setSelectedCategories(selected);
+            if (selected.length === 0) {
+                setSelectedCourses([]);
+            }
         },
         onSelectedCourse: ({
             selectedCourses,
@@ -85,6 +89,7 @@ export default compose(
     withPropsOnChange(['selectedCategories'], ({
         selectedCategories,
         setListCourses,
+        setSelectedCourses,
         courses
     }: any) => {
         const listCourses = (courses.list || []).filter((course: any) => selectedCategories.includes(course.Categories));
