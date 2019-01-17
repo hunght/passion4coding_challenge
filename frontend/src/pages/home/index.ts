@@ -55,9 +55,15 @@ export default compose(
             setSelectedCourses(selected);
         },
         onStart: ({
+            setIsOpenModal,
             selectedCourses,
-            setIsOpenModal
-        }: any) => () => { if (selectedCourses.length > 0) setIsOpenModal(true) },
+            setSelectedCourses,
+            listCourses
+        }: any) => () => {
+            const list = selectedCourses.filter((selected: number) => findIndex(listCourses, (item: any) => item.Id === selected) !== -1);
+            setSelectedCourses(list);
+            setIsOpenModal(true);
+        },
         onReset: ({
             setSelectedVerticals,
             setSelectedCategories,
