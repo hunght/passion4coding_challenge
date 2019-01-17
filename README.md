@@ -15,8 +15,10 @@ password: 123456
 
 ## Answers
 1.
+- I'm using create-react-app command so it will take advantage of pre-configuaration and optiomize from the package. 
 2.
-- Structure your files by feature.
-- Use redux-saga to: have readable and testable asynchronous flows, tie together your decoupled components.
+- Typescript also is great choise for type checking and error proof.
+- Structure project files by feature.
+- Use redux-saga and recompose to have readable and testable asynchronous flows, tie together your decoupled components.
 
 3. I’m working on improving in state management , performance and architecture. So I’m trying to go from ‘good’ to ‘great’ in these areas.
