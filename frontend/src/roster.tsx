@@ -1,9 +1,7 @@
 import * as React from "react";
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
-import CoursesPage from "./pages/courses";
-import CategoriesPage from "./pages/categories";
-import VerticalsPage from "./pages/verticals";
 import SignInPage from "./pages/signin";
+import HomePage from "./pages/home";
 const PrivateRoute = ({ component, isAuthenticated, ...rest }: any) => {
     const routeComponent = (props: any) => (
         isAuthenticated
@@ -19,10 +17,7 @@ const Roster = () => {
         <BrowserRouter>
             <Switch>
                 <Route path="/login" exact component={SignInPage} />
-                <PrivateRoute isAuthenticated={isAuthenticated} path="/" exact component={CoursesPage} />
-                <PrivateRoute isAuthenticated={isAuthenticated} path="/courses" exact component={CoursesPage} />
-                <PrivateRoute isAuthenticated={isAuthenticated} path="/categories" exact component={CategoriesPage} />
-                <PrivateRoute isAuthenticated={isAuthenticated} path="/verticals" exact component={VerticalsPage} />
+                <PrivateRoute isAuthenticated={isAuthenticated} path="/" exact component={HomePage} />
             </Switch>
         </BrowserRouter>
     );
