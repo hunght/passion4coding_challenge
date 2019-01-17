@@ -109,14 +109,6 @@ export default compose(
             setSelectedCourses([]);
         }
     }),
-    withPropsOnChange(['listCourses'], ({
-        listCourses,
-        selectedCourses,
-        setSelectedCourses,
-    }: any) => {
-        const list = selectedCourses.filter((selected: number) => findIndex(listCourses, (item: any) => item.Id === selected) !== -1);
-        setSelectedCourses(list);
-    }),
     lifecycle({
         componentDidMount() {
             this.props.getCourses();
